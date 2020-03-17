@@ -478,19 +478,23 @@ void ColorItemNextCust(COMMAND_T* = NULL)
 
 void TrackRandomCol(COMMAND_T* = NULL)
 {
-	COLORREF cr;
-	// All black check
-	if (AllBlack())
-		return;
-	while (!(cr = g_custColors[rand() % 16]));
-	cr |= 0x1000000;
-	for (int i = 0; i <= GetNumTracks(); i++)
-	{
-		MediaTrack* tr = CSurf_TrackFromID(i, false);
-		if (*(int*)GetSetMediaTrackInfo(tr, "I_SELECTED", NULL))
-			GetSetMediaTrackInfo(tr, "I_CUSTOMCOLOR", &cr);
-	}
-	Undo_OnStateChangeEx(__LOCALIZE("Set track(s) to one random custom color","sws_undo"), UNDO_STATE_TRACKCFG, -1);
+    static int iRulerLaneCol[3];
+    static int iTimelineBGColor;
+
+
+    int iSize;
+    ColorTheme* colors = (ColorTheme*)GetColorThemeStruct(&iSize);
+    
+    //moj kod
+    iTimelineBGColor = colors->timeline_bgcolor;
+    colors->timeline_bgcolor = RGB(100,0,200);
+
+    for (int i = 0; i < 3; i++)
+    {
+        iRulerLaneCol[i] = colors->ruler_lane_bgcolor[i];
+        colors->ruler_lane_bgcolor[i] = RGB(0, 200, 200);
+    }
+    UpdateTimeline();
 }
 
 void TrackRandomCols(COMMAND_T* = NULL)
@@ -1009,7 +1013,7 @@ static COMMAND_T g_commandTable[] =
 	{ { DEFACCEL, "SWS: Set selected track(s) to next custom color" },            "SWS_COLTRACKNEXTCUST",	ColorTrackNextCust,	NULL, },
 
 	// Start of menu!!
-	{ { DEFACCEL, "SWS: Set selected track(s) to one random custom color" },      "SWS_TRACKRANDCOL",		TrackRandomCol,		"Set to one random custom color", },
+	{ { DEFACCEL, "SWS: LKC - TEST" },                                            "SWS_TRACKRANDCOL",      	TrackRandomCol,		"Set to one random custom color", },
 	{ { DEFACCEL, "SWS: Set selected track(s) to random custom color(s)" },       "SWS_TRACKRANDCOLS",		TrackRandomCols,	"Set to random custom color(s)", },
 	{ { DEFACCEL, "SWS: Set selected tracks to color gradient" },                 "SWS_TRACKGRAD",			TrackGradient,		"Set to color gradient", },
 	{ { DEFACCEL, "SWS: Set selected track(s) to ordered custom colors" },        "SWS_TRACKORDCOL",		TrackOrderedCol,	"Set to ordered custom colors", },
