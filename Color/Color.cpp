@@ -722,14 +722,21 @@ void ColorTimer()
 	static int iRulerLaneCol[3];
 	static bool bRecording = false;
 
+    static int iTimelineBGColor;
+
 	if (!bRecording && g_bRecRedRuler && GetPlayState() & 4)
 	{
 		int iSize;
 		ColorTheme* colors = (ColorTheme*)GetColorThemeStruct(&iSize);
+        
+        //moj kod
+        iTimelineBGColor = colors->timeline_bgcolor;
+        colors->timeline_bgcolor = RGB(100,0,200);
+
 		for (int i = 0; i < 3; i++)
 		{
 			iRulerLaneCol[i] = colors->ruler_lane_bgcolor[i];
-			colors->ruler_lane_bgcolor[i] = RGB(0xFF, 0, 0);
+			colors->ruler_lane_bgcolor[i] = RGB(0, 200, 200);
 		}
 		UpdateTimeline();
 		bRecording = true;
@@ -740,6 +747,11 @@ void ColorTimer()
 		ColorTheme* colors = (ColorTheme*)GetColorThemeStruct(&iSize);
 		for (int i = 0; i < 3; i++)
 			colors->ruler_lane_bgcolor[i] = iRulerLaneCol[i];
+
+        //moj kod
+        colors->timeline_bgcolor = iTimelineBGColor;
+
+
 		UpdateTimeline();
 		bRecording = false;
 	}
