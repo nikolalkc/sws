@@ -497,6 +497,27 @@ void TrackRandomCol(COMMAND_T* = NULL)
     UpdateTimeline();
 }
 
+void SetTimelineYellow(COMMAND_T* = NULL)
+{
+    static int iRulerLaneCol[3];
+    static int iTimelineBGColor;
+
+
+    int iSize;
+    ColorTheme* colors = (ColorTheme*)GetColorThemeStruct(&iSize);
+    
+    //moj kod
+    iTimelineBGColor = colors->timeline_bgcolor;
+    colors->timeline_bgcolor = RGB(200,200,0);
+
+    for (int i = 0; i < 3; i++)
+    {
+        iRulerLaneCol[i] = colors->ruler_lane_bgcolor[i];
+        colors->ruler_lane_bgcolor[i] = RGB(200, 200, 0);
+    }
+    UpdateTimeline();
+}
+
 void TrackRandomCols(COMMAND_T* = NULL)
 {
 	COLORREF cr;
@@ -1014,6 +1035,7 @@ static COMMAND_T g_commandTable[] =
 
 	// Start of menu!!
 	{ { DEFACCEL, "SWS: LKC - TEST" },                                            "SWS_TRACKRANDCOL",      	TrackRandomCol,		"Set to one random custom color", },
+	{ { DEFACCEL, "LKC++: Set timeline color to yellow" },                        "LKC_TIMELINEYELLOW",   	SetTimelineYellow,	"Set timeline color to yellow", },
 	{ { DEFACCEL, "SWS: Set selected track(s) to random custom color(s)" },       "SWS_TRACKRANDCOLS",		TrackRandomCols,	"Set to random custom color(s)", },
 	{ { DEFACCEL, "SWS: Set selected tracks to color gradient" },                 "SWS_TRACKGRAD",			TrackGradient,		"Set to color gradient", },
 	{ { DEFACCEL, "SWS: Set selected track(s) to ordered custom colors" },        "SWS_TRACKORDCOL",		TrackOrderedCol,	"Set to ordered custom colors", },
