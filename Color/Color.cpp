@@ -507,8 +507,17 @@ void SetTimelineYellow(COMMAND_T* = NULL)
     ColorTheme* colors = (ColorTheme*)GetColorThemeStruct(&iSize);
     
     //moj kod
-    iTimelineBGColor = colors->timeline_bgcolor;
-    colors->timeline_bgcolor = RGB(200,150,0);
+ //   iTimelineBGColor = colors->timeline_bgcolor;
+ //   colors->timeline_bgcolor = RGB(200,150,0);
+	//colors->itembgcolor = RGB(200, 100, 50);
+	//colors->trackbgs[0] = RGB(100, 50, 20);
+	//colors->trackbgs[1] = RGB(100, 150, 40);
+	colors->peaks[0] = RGB(200, 200, 0);
+	colors->peaks[1] = RGB(200, 150, 0);
+	colors->peakssel2[0] = RGB(200, 200, 0)*0.7;
+	colors->peakssel2[1] = RGB(200, 200, 0)*0.7;
+
+	colors->arrange_bg = RGB(255, 0, 255);
 
     for (int i = 0; i < 3; i++)
     {
