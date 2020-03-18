@@ -510,21 +510,61 @@ void SetTimelineYellow(COMMAND_T* = NULL)
  //   iTimelineBGColor = colors->timeline_bgcolor;
  //   colors->timeline_bgcolor = RGB(200,150,0);
 	//colors->itembgcolor = RGB(200, 100, 50);
-	//colors->trackbgs[0] = RGB(100, 50, 20);
-	//colors->trackbgs[1] = RGB(100, 150, 40);
-	colors->peaks[0] = RGB(200, 200, 0);
-	colors->peaks[1] = RGB(200, 150, 0);
-	colors->peakssel2[0] = RGB(200, 200, 0)*0.7;
-	colors->peakssel2[1] = RGB(200, 200, 0)*0.7;
+	//colors->peaks[0] = RGB(200, 200, 0);
+	//colors->peaks[1] = RGB(200, 150, 0);
+	//colors->peakssel2[0] = RGB(200, 200, 0)*0.7;
+	//colors->peakssel2[1] = RGB(200, 200, 0)*0.7;
+	//colors->arrange_bg = RGB(255, 0, 255);
 
-	colors->arrange_bg = RGB(255, 0, 255);
-
+	colors->trackbgs[0] = RGB(87, 72, 45);
+	colors->trackbgs[1] = RGB(78, 71, 61);
     for (int i = 0; i < 3; i++)
     {
         iRulerLaneCol[i] = colors->ruler_lane_bgcolor[i];
-        colors->ruler_lane_bgcolor[i] = RGB(200, i*100/2, 0);
+        colors->ruler_lane_bgcolor[i] = RGB(200, 150, 0);
     }
     UpdateTimeline();
+	Main_OnCommand(40311, 0); //ripple all
+}
+
+void SetTimelineBlue(COMMAND_T* = NULL)
+{
+	static int iRulerLaneCol[3];
+	static int iTimelineBGColor;
+
+
+	int iSize;
+	ColorTheme* colors = (ColorTheme*)GetColorThemeStruct(&iSize);
+
+	colors->trackbgs[0] = RGB(44, 60, 73);
+	colors->trackbgs[1] = RGB(34, 50, 63);
+	for (int i = 0; i < 3; i++)
+	{
+		iRulerLaneCol[i] = colors->ruler_lane_bgcolor[i];
+		colors->ruler_lane_bgcolor[i] = RGB(85, 200, 255);
+	}
+	UpdateTimeline();
+	Main_OnCommand(40310, 0); //ripple per track
+}
+
+void SetTimelineGray(COMMAND_T* = NULL)
+{
+	static int iRulerLaneCol[3];
+	static int iTimelineBGColor;
+
+
+	int iSize;
+	ColorTheme* colors = (ColorTheme*)GetColorThemeStruct(&iSize);
+
+	colors->trackbgs[0] = RGB(45, 45, 45);
+	colors->trackbgs[1] = RGB(45, 45, 45);
+	for (int i = 0; i < 3; i++)
+	{
+		iRulerLaneCol[i] = colors->ruler_lane_bgcolor[i];
+		colors->ruler_lane_bgcolor[i] = RGB(45, 45, 45);
+	}
+	UpdateTimeline();
+	Main_OnCommand(40309, 0); //ripple off
 }
 
 void TrackRandomCols(COMMAND_T* = NULL)
@@ -1043,8 +1083,10 @@ static COMMAND_T g_commandTable[] =
 	{ { DEFACCEL, "SWS: Set selected track(s) to next custom color" },            "SWS_COLTRACKNEXTCUST",	ColorTrackNextCust,	NULL, },
 
 	// Start of menu!!
-	{ { DEFACCEL, "SWS: LKC - TEST2" },                                            "SWS_TRACKRANDCOL",      	TrackRandomCol,		"Set to one random custom color", },
+	{ { DEFACCEL, "SWS: LKC - TEST2" },                                            "SWS_TRACKRANDCOL",      TrackRandomCol,		"Set to one random custom color", },
 	{ { DEFACCEL, "LKC++: Set timeline color to yellow" },                        "LKC_TIMELINEYELLOW",   	SetTimelineYellow,	"Set timeline color to yellow", },
+	{ { DEFACCEL, "LKC++: Set timeline color to blue" },						   "LKC_TIMELINEBLUE",   	SetTimelineBlue,	"Set timeline color to blue", },
+	{ { DEFACCEL, "LKC++: Set timeline color to gray" },						   "LKC_TIMELINEGRAY",   	SetTimelineGray,	"Set timeline color to gray", },
 	{ { DEFACCEL, "SWS: Set selected track(s) to random custom color(s)" },       "SWS_TRACKRANDCOLS",		TrackRandomCols,	"Set to random custom color(s)", },
 	{ { DEFACCEL, "SWS: Set selected tracks to color gradient" },                 "SWS_TRACKGRAD",			TrackGradient,		"Set to color gradient", },
 	{ { DEFACCEL, "SWS: Set selected track(s) to ordered custom colors" },        "SWS_TRACKORDCOL",		TrackOrderedCol,	"Set to ordered custom colors", },
