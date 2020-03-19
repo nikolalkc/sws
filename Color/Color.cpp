@@ -524,7 +524,7 @@ void SetTimelineYellow(COMMAND_T* = NULL)
         colors->ruler_lane_bgcolor[i] = RGB(200, 150, 0);
     }
     UpdateTimeline();
-	Main_OnCommand(40311, 0); //ripple all
+	//Main_OnCommand(40311, 0); //ripple all
 }
 
 void SetTimelineBlue(COMMAND_T* = NULL)
@@ -544,7 +544,7 @@ void SetTimelineBlue(COMMAND_T* = NULL)
 		colors->ruler_lane_bgcolor[i] = RGB(85, 200, 255);
 	}
 	UpdateTimeline();
-	Main_OnCommand(40310, 0); //ripple per track
+	//Main_OnCommand(40310, 0); //ripple per track
 }
 
 void SetTimelineGray(COMMAND_T* = NULL)
@@ -564,7 +564,7 @@ void SetTimelineGray(COMMAND_T* = NULL)
 		colors->ruler_lane_bgcolor[i] = RGB(45, 45, 45);
 	}
 	UpdateTimeline();
-	Main_OnCommand(40309, 0); //ripple off
+	//Main_OnCommand(40309, 0); //ripple off
 }
 
 void TrackRandomCols(COMMAND_T* = NULL)

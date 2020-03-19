@@ -185,21 +185,25 @@ bool hookCommandProc2(KbdSectionInfo* sec, int cmdId, int val, int valhw, int re
 // just a dummy example, not used ATM (commented in the entry point)
 void hookPostCommandProc(int iCmd, int flag)
 {
-	//WDL_FastString str;
-	//str.SetFormatted(512, "hookPostCommandProc: %s, flag=%d\r\n", kbd_getTextFromCmd(iCmd, NULL), flag);
-	//ShowConsoleMsg(str.Get());
+	WDL_FastString str;
+	str.SetFormatted(512, "hookPostCommandProc: %s, flag=%d\r\n", kbd_getTextFromCmd(iCmd, NULL), flag);
+	ShowConsoleMsg(str.Get());
 	if (iCmd == 40310) //per track 40311 --all tracks , 40309 --off
 	{
 		ShowConsoleMsg("RIPPLE PER TRACK\r\n");
+		
 	}
 	else if (iCmd == 40311) {
 		ShowConsoleMsg("RIPPLE ALL TRACKS\r\n");
+		Main_OnCommand(NamedCommandLookup("_LKC_TIMELINEYELLOW"), 0);
 	}
 	else if (iCmd == 40309) {
 		ShowConsoleMsg("RIPPLE OFF\r\n");
 	}
 	else if (iCmd == 1155) {
+		int state = GetToggleCommandState(1155);
 		ShowConsoleMsg("CYCLE RIPPLE MODE\r\n");
+		
 	}
 
 }
